@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="es-VE">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VITALUD para médicos — Tu consulta, encontrable</title>
+<meta name="description" content="Tu perfil profesional en el directorio de salud del estado Trujillo. Con solicitud de cita directa a tu WhatsApp.">
+<meta property="og:title" content="VITALUD para médicos">
+<meta property="og:description" content="Tu perfil profesional en el directorio de salud del estado Trujillo.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --teal:#16A79A; --azul:#2F9BD6; --verde:#67C07A; --navy:#1A2B4B;
+  --mint:#EAF7F4; --teal-050:#E7F6F3; --teal-600:#0F8C81; --navy-deep:#12203A;
+  --ink:#1C2941; --slate:#4F6079; --muted:#8494A8; --line:#E4EAF1;
+  --paper:#F6F9FB; --surface:#FFFFFF;
+  --grad:linear-gradient(96deg,#2F9BD6 0%,#16A79A 54%,#67C07A 100%);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font-family:"DM Sans",system-ui,sans-serif;font-size:16px;line-height:1.62;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:Sora,system-ui,sans-serif;font-weight:700;letter-spacing:-.03em;margin:0}
+p{margin:0}
+.wrap{max-width:660px;margin:0 auto;padding:0 22px}
+h1{font-size:clamp(31px,7.4vw,42px);line-height:1.09}
+h2{font-size:clamp(24px,5.6vw,31px);line-height:1.15}
+h3{font-size:19px;font-weight:600;line-height:1.28}
+.lede{margin-top:15px;color:var(--slate)}
+
+.eyebrow{display:flex;align-items:center;gap:12px;margin-bottom:14px;
+  font-family:"DM Mono",monospace;font-size:12px;letter-spacing:.11em;
+  text-transform:uppercase;color:var(--muted)}
+.eyebrow b{color:var(--teal);font-weight:500}
+.eyebrow i{display:block;width:34px;height:1px;background:var(--line)}
+
+.nav{padding:22px 0}
+.nav .wrap{display:flex;align-items:center;gap:11px}
+.wordmark{font-family:Sora;font-weight:700;font-size:24px;letter-spacing:-.045em;color:var(--navy);line-height:1}
+.wordmark em{font-style:normal;color:var(--teal)}
+.tagline{display:block;font-size:8px;font-weight:500;letter-spacing:.3em;color:var(--muted);margin-top:3px}
+
+.chip{display:inline-flex;align-items:center;gap:7px;background:var(--teal-050);color:var(--teal-600);
+  font-size:13.5px;font-weight:500;padding:7px 14px;border-radius:999px;line-height:1}
+.chip.dot::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--verde)}
+.chip.mono{background:#EEF2F7;color:var(--slate);font-family:"DM Mono",monospace;font-size:12.5px}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;
+  font-family:"DM Sans";font-weight:700;font-size:16px;padding:16px 28px;
+  border-radius:999px;border:1px solid transparent;text-decoration:none;cursor:pointer}
+.btn-primary{background:var(--grad);color:#fff;box-shadow:0 8px 20px -8px rgba(22,167,154,.6)}
+.btn-soft{background:var(--surface);color:var(--navy);border-color:var(--line)}
+.btn-block{width:100%}
+
+section{padding:52px 0}
+.hero{padding:14px 0 46px}
+.hero p.sub{margin-top:20px;font-size:17.5px;color:var(--slate)}
+.hero .btn{margin-top:28px}
+
+/* recorrido */
+.flow{background:var(--surface);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.flow-list{margin-top:30px;display:grid;gap:14px}
+.fl{display:flex;gap:15px;align-items:flex-start;background:var(--paper);
+  border:1px solid var(--line);border-radius:16px;padding:20px 20px}
+.fl .n{flex:none;width:29px;height:29px;border-radius:9px;background:var(--teal-050);
+  color:var(--teal-600);font-family:"DM Mono",monospace;font-size:13px;font-weight:500;
+  display:grid;place-items:center}
+.fl h3{font-size:17px;margin-bottom:4px}
+.fl p{font-size:15px;color:var(--slate)}
+
+/* mockup perfil */
+.mock{background:var(--surface);border:1px solid var(--line);border-radius:22px;
+  overflow:hidden;margin-top:28px;box-shadow:0 24px 48px -32px rgba(28,41,65,.4)}
+.mock-url{display:flex;align-items:center;gap:8px;padding:13px 18px;border-bottom:1px solid var(--line);
+  font-family:"DM Mono",monospace;font-size:12.5px;color:var(--muted);background:var(--paper)}
+.mock-url b{color:var(--teal-600);font-weight:500}
+.mock-band{height:92px;background:var(--grad);position:relative}
+.mock-band svg{position:absolute;bottom:-1px;left:0;width:100%;height:20px;display:block}
+.mock-body{padding:0 22px 24px;position:relative;z-index:2}
+.mock-head{display:flex;gap:14px;align-items:center}
+.mock-head{margin-top:-30px;align-items:flex-end}
+.av{width:92px;height:92px;border-radius:24px;flex:none;object-fit:cover;
+  border:3px solid #fff;box-shadow:0 8px 20px -10px rgba(28,41,65,.5);display:block}
+.mock-head>div{padding-bottom:4px;min-width:0}
+.mock-head h3{font-size:19px}
+.mock-head p{color:var(--teal-600);font-size:14.5px;font-weight:500;margin-top:2px}
+.mock-chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:18px}
+.mock-rows{margin-top:16px;border-top:1px solid var(--line)}
+.r{display:flex;gap:12px;align-items:flex-start;padding:13px 0;border-bottom:1px solid var(--line);
+  font-size:14.5px;line-height:1.5;color:var(--slate)}
+.r svg{flex:none;margin-top:2px}
+.mock-sec{margin-top:20px}
+.mock-sec h4{font-family:Sora;font-size:15px;font-weight:600;margin:0 0 10px}
+.serv{display:grid;gap:8px}
+.serv div{display:flex;justify-content:space-between;gap:12px;border:1px solid var(--line);
+  border-radius:12px;padding:12px 14px;font-size:14.5px}
+.serv b{font-family:"DM Mono",monospace;font-weight:500;color:var(--teal-600)}
+.mock-cta{display:flex;gap:9px;margin-top:20px}
+.mock-cta .btn{flex:1;padding:13px 14px;font-size:14.5px}
+
+/* solicitud de cita */
+.req{background:var(--mint)}
+
+/* incluye */
+.inc{display:grid;gap:11px;margin-top:26px}
+.ii{display:flex;gap:12px;align-items:flex-start;font-size:15.5px}
+.ii svg{flex:none;margin-top:4px}
+.ii span b{font-weight:700}
+
+/* precio */
+.price{background:var(--navy-deep);color:#C9D6E4}
+.price h2{color:#fff}
+.price-card{background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.14);
+  border-radius:20px;padding:26px 22px;margin-top:26px}
+.big{font-family:Sora;font-size:46px;font-weight:700;color:#fff;line-height:1;letter-spacing:-.04em}
+.big small{font-size:17px;font-weight:400;color:#93A6BC;letter-spacing:0}
+.price-rows{margin-top:20px;border-top:1px solid rgba(255,255,255,.14)}
+.pr{display:flex;justify-content:space-between;gap:14px;padding:13px 0;
+  border-bottom:1px solid rgba(255,255,255,.14);font-size:15px}
+.pr b{font-family:"DM Mono",monospace;font-weight:500;color:#fff;white-space:nowrap}
+.pr i{font-style:normal;display:block;font-size:13px;color:#8296AE;margin-top:3px;line-height:1.45}
+.price small.nota{display:block;margin-top:18px;font-size:14px;color:#93A6BC;line-height:1.55}
+
+/* cierre */
+.end{text-align:center;padding:56px 0 70px}
+.end .btn{margin-top:24px}
+footer{background:var(--navy-deep);color:#7F94AC;padding:30px 0 40px;font-size:13.5px;text-align:center}
+.sig{font-family:"DM Mono",monospace;font-size:12px;color:#5E7590;margin-top:10px;letter-spacing:.06em}
+
+/* ── demo animada ── */
+.phone{width:272px;max-width:100%;margin:26px auto 0;background:#0E1726;border-radius:34px;
+  padding:9px;box-shadow:0 26px 56px -28px rgba(14,23,38,.62)}
+.screen{background:#fff;border-radius:26px;overflow:hidden;height:432px;position:relative}
+.pane{position:absolute;inset:0;opacity:0;transition:opacity .45s ease;pointer-events:none;overflow:hidden}
+.pane.on{opacity:1}
+
+/* pane VITALUD */
+.p-top{background:var(--grad);padding:14px 16px;color:#fff}
+.p-top b{display:block;font-family:Sora;font-size:14.5px;font-weight:700;letter-spacing:-.02em}
+.p-top span{font-size:11.5px;opacity:.9}
+.p-in{padding:15px 16px}
+.p-lab{font-family:"DM Mono",monospace;font-size:10px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--muted);margin-bottom:9px}
+.days,.hours{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:16px}
+.d,.hh{border:1px solid var(--line);border-radius:10px;padding:9px 2px;text-align:center;
+  font-size:12px;color:var(--slate);transition:all .3s ease}
+.d b{display:block;font-family:Sora;font-size:14px;font-weight:600;color:var(--ink);margin-top:1px}
+.d.sel,.hh.sel{background:var(--teal-050);border-color:var(--teal);color:var(--teal-600)}
+.d.sel b{color:var(--teal-600)}
+.hh.sel{font-weight:700}
+.fld{border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:12.5px;
+  color:var(--ink);margin-bottom:8px;min-height:38px}
+.fld i{font-style:normal;color:var(--muted)}
+.cur::after{content:"";display:inline-block;width:1.5px;height:13px;background:var(--teal);
+  vertical-align:-2px;margin-left:1px;animation:bl .9s steps(1) infinite}
+@keyframes bl{50%{opacity:0}}
+.p-btn{background:var(--grad);color:#fff;border-radius:999px;text-align:center;
+  padding:12px;font-weight:700;font-size:13.5px;margin-top:4px;transition:transform .18s ease}
+.p-btn.press{transform:scale(.955)}
+
+/* pane WhatsApp */
+.wa{position:absolute;inset:0;background:#0B141A;display:flex;flex-direction:column}
+.wa-top{background:#1F2C34;padding:13px 15px;display:flex;align-items:center;gap:10px}
+.wa-av{width:30px;height:30px;border-radius:50%;background:var(--grad);flex:none}
+.wa-top b{color:#E9EDEF;font-size:13.5px;font-family:"DM Sans";font-weight:700;display:block;line-height:1.2}
+.wa-top span{color:#8696A0;font-size:10.5px}
+.wa-body{flex:1;padding:16px 13px;display:flex;flex-direction:column;justify-content:flex-end;gap:8px}
+.bub{background:#1F2C34;color:#E9EDEF;border-radius:14px 14px 14px 4px;padding:12px 13px;
+  font-size:12.5px;line-height:1.62;white-space:pre-line;max-width:92%;
+  opacity:0;transform:translateY(10px);transition:opacity .4s ease,transform .4s ease}
+.bub.in{opacity:1;transform:none}
+.bub b{display:block;color:#6FD3A6;font-size:10px;letter-spacing:.09em;margin-bottom:7px;font-weight:700}
+.bub .t{display:block;text-align:right;color:#8696A0;font-size:9.5px;margin-top:7px}
+.typing{display:flex;gap:4px;padding:12px 14px;background:#1F2C34;border-radius:14px;width:fit-content}
+.typing i{width:6px;height:6px;border-radius:50%;background:#8696A0;animation:tp 1.1s infinite}
+.typing i:nth-child(2){animation-delay:.18s}
+.typing i:nth-child(3){animation-delay:.36s}
+@keyframes tp{0%,60%,100%{opacity:.35;transform:translateY(0)}30%{opacity:1;transform:translateY(-3px)}}
+
+.replay{display:block;margin:18px auto 0;background:none;border:1px solid var(--line);
+  border-radius:999px;padding:10px 20px;font-family:"DM Sans";font-size:13.5px;font-weight:500;
+  color:var(--slate);cursor:pointer;background:#fff}
+.replay:hover{border-color:var(--teal);color:var(--teal-600)}
+
+/* ── modal mapa ── */
+.ov{position:fixed;inset:0;background:rgba(18,32,58,.62);z-index:80;display:none;
+  align-items:center;justify-content:center;padding:20px}
+.ov.on{display:flex}
+.mp{background:#fff;border-radius:24px;overflow:hidden;width:100%;max-width:400px;
+  box-shadow:0 30px 70px -30px rgba(18,32,58,.7)}
+.mp-map{height:210px;position:relative;background:#E8F0E9}
+.mp-info{padding:20px 20px 22px}
+.mp-info h4{font-family:Sora;font-size:17px;font-weight:700;margin:0 0 5px}
+.mp-info p{font-size:14.5px;color:var(--slate)}
+.mp-info .btn{margin-top:16px;width:100%;padding:14px;font-size:15px}
+.mp-close{position:absolute;top:12px;right:12px;width:32px;height:32px;border-radius:50%;
+  background:rgba(255,255,255,.94);border:none;cursor:pointer;display:grid;place-items:center;
+  box-shadow:0 3px 10px -3px rgba(18,32,58,.4);z-index:2}
+.pin{position:absolute;left:50%;top:46%;transform:translate(-50%,-100%);z-index:2}
+.pin::after{content:"";position:absolute;left:50%;bottom:-7px;transform:translateX(-50%);
+  width:22px;height:7px;background:rgba(18,32,58,.22);border-radius:50%;filter:blur(2px)}
+@media (prefers-reduced-motion:reduce){.bub{opacity:1;transform:none}.typing i{animation:none}.cur::after{animation:none}}
+
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <svg width="30" height="33" viewBox="0 0 64 72" fill="none" aria-hidden="true">
+      <defs>
+        <linearGradient id="vI" x1="14" y1="16" x2="32" y2="62" gradientUnits="userSpaceOnUse">
+          <stop offset="0" stop-color="#47A0CC"/><stop offset="1" stop-color="#255CA6"/></linearGradient>
+        <linearGradient id="vD" x1="55" y1="25" x2="39" y2="66" gradientUnits="userSpaceOnUse">
+          <stop offset="0" stop-color="#2FB8AB"/><stop offset="1" stop-color="#1BA595"/></linearGradient>
+      </defs>
+      <path d="M54.5 27 40 64.5" stroke="url(#vD)" stroke-width="12.5" stroke-linecap="round"/>
+      <path d="M12.5 18.5 30 60.5" stroke="url(#vI)" stroke-width="13" stroke-linecap="round"/>
+      <circle cx="37" cy="19" r="7.6" fill="#52AACE"/>
+    </svg>
+    <span>
+      <span class="wordmark">vita<em>lud</em></span>
+      <span class="tagline">CONECTA CON TU SALUD</span>
+    </span>
+  </div>
+</header>
+
+<main>
+
+  <section class="hero">
+    <div class="wrap">
+      <span class="chip dot">Para profesionales de la salud</span>
+      <h1 style="margin-top:18px">Que el paciente que lo busca, lo encuentre.</h1>
+      <p class="sub">Su perfil profesional dentro del directorio de salud del estado Trujillo, con su información correcta y un botón que le manda la solicitud de cita directo a su WhatsApp.</p>
+      <a class="btn btn-primary" href="#precio">Ver qué incluye</a>
+    </div>
+  </section>
+
+  <section class="flow">
+    <div class="wrap">
+      <p class="eyebrow"><b>01</b><i></i>El recorrido</p>
+      <h2>Cómo llega un paciente hasta usted</h2>
+      <div class="flow-list">
+        <div class="fl">
+          <span class="n">1</span>
+          <div>
+            <h3>Busca lo que necesita</h3>
+            <p>«Pediatra en Valera», «ginecólogo cerca», «dónde hacerme unos exámenes».</p>
+          </div>
+        </div>
+        <div class="fl">
+          <span class="n">2</span>
+          <div>
+            <h3>Encuentra su perfil</h3>
+            <p>Con su foto, especialidad, dirección exacta, horario y la fecha en que confirmamos sus datos.</p>
+          </div>
+        </div>
+        <div class="fl">
+          <span class="n">3</span>
+          <div>
+            <h3>Le escribe</h3>
+            <p>Le llega un mensaje a su WhatsApp con el día y la hora que el paciente prefiere. Usted coordina como siempre lo ha hecho.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <p class="eyebrow"><b>02</b><i></i>Su perfil</p>
+      <h2>Una página propia dentro de VITALUD</h2>
+      <p class="lede">Con su nombre en la dirección web. La comparte por WhatsApp, la pone en su Instagram, la imprime en su tarjeta.</p>
+
+      <div class="mock">
+        <div class="mock-url">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#16A79A" stroke-width="2.2" stroke-linecap="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+          vitalud.pro<b>/medico/ana-belen-ruiz</b>
+        </div>
+        <div class="mock-band">
+          <svg viewBox="0 0 400 20" preserveAspectRatio="none" aria-hidden="true">
+            <path d="M0 11c68-12 120 9 200 3s134-13 200-4v10H0z" fill="#fff"/>
+          </svg>
+        </div>
+        <div class="mock-body">
+          <div class="mock-head">
+            <img class="av" src="data:image/webp;base64,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" alt="Dra. Ana Belén Ruiz">
+            <div>
+              <h3>Dra. Ana Belén Ruiz</h3>
+              <p>Ginecología · Obstetricia</p>
+            </div>
+          </div>
+
+          <div class="mock-chips">
+            <span class="chip">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#0F8C81" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>
+              Confirmado · sept 2026
+            </span>
+            <span class="chip mono">MPPS 12.345</span>
+          </div>
+
+          <div class="mock-rows">
+            <div class="r">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16A79A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              <span>Centro Clínico Valera, piso 3, consultorio 302</span>
+            </div>
+            <div class="r">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16A79A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.2 2"/></svg>
+              <span>Lunes a jueves · 2:00 a 6:00 PM</span>
+            </div>
+            <div class="r">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16A79A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16v12H4z"/><path d="m4 8 8 5 8-5"/></svg>
+              <span>Seguros Caracas · Mercantil</span>
+            </div>
+          </div>
+
+          <div class="mock-sec">
+            <h4>Servicios</h4>
+            <div class="serv">
+              <div><span>Consulta ginecológica</span><b>$30</b></div>
+              <div><span>Control prenatal</span><b>$25</b></div>
+              <div><span>Ecosonograma</span><b>$40</b></div>
+            </div>
+          </div>
+
+          <div class="mock-cta">
+            <button class="btn btn-soft" id="bMapa" type="button">Cómo llegar</button>
+            <button class="btn btn-primary" id="bCita" type="button">Solicitar cita</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="req" id="demo">
+    <div class="wrap">
+      <p class="eyebrow"><b>03</b><i></i>Solicitud de cita</p>
+      <h2>El paciente elige, usted confirma</h2>
+      <p class="lede">No es una agenda que tenga que revisar ni un sistema que tenga que aprender. El paciente escoge día y hora, y a usted le llega el mensaje armado por WhatsApp.</p>
+
+      <div class="phone">
+        <div class="screen">
+
+          <div class="pane on" id="paneV">
+            <div class="p-top">
+              <b>Solicitar cita</b>
+              <span>Dra. Ana Belén Ruiz · Ginecología</span>
+            </div>
+            <div class="p-in">
+              <p class="p-lab">Elija el día</p>
+              <div class="days">
+                <div class="d" data-d="0">Lun<b>15</b></div>
+                <div class="d" data-d="1">Mar<b>16</b></div>
+                <div class="d" data-d="2">Mié<b>17</b></div>
+                <div class="d" data-d="3">Jue<b>18</b></div>
+              </div>
+              <p class="p-lab">Elija la hora</p>
+              <div class="hours">
+                <div class="hh" data-h="0">2:00</div>
+                <div class="hh" data-h="1">3:00</div>
+                <div class="hh" data-h="2">4:00</div>
+                <div class="hh" data-h="3">5:00</div>
+              </div>
+              <p class="p-lab">Sus datos</p>
+              <div class="fld" id="fN"><i>Nombre y apellido</i></div>
+              <div class="fld" id="fT"><i>Teléfono</i></div>
+              <div class="p-btn" id="pBtn">Solicitar cita</div>
+            </div>
+          </div>
+
+          <div class="pane" id="paneW">
+            <div class="wa">
+              <div class="wa-top">
+                <div class="wa-av"></div>
+                <div>
+                  <b>VITALUD</b>
+                  <span>en línea</span>
+                </div>
+              </div>
+              <div class="wa-body">
+                <div class="typing" id="tp"><i></i><i></i><i></i></div>
+                <div class="bub" id="bub"><b>SOLICITUD DE CITA</b>Dra. Ana Belén Ruiz
+Paciente: María González
+Preferencia: martes 16, 4:00 PM
+Teléfono: 0414 555 1234<span class="t">4:12 p. m.</span></div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <button class="replay" id="replay" type="button">Ver de nuevo</button>
+
+      <p class="lede" style="margin-top:22px;font-size:15px">Usted responde, confirma o propone otra hora. La consulta sigue funcionando exactamente como hoy — lo único que cambia es que el paciente llega sabiendo dónde está, cuándo atiende y cuánto cuesta.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <p class="eyebrow"><b>04</b><i></i>Qué incluye</p>
+      <h2>Todo esto, desde el primer día</h2>
+
+      <div class="inc">
+        <div class="ii"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#16A79A" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg><span><b>Su página propia</b> en vitalud.pro/medico/su-nombre</span></div>
+        <div class="ii"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#16A79A" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg><span><b>Su foto</b> y datos profesionales completos</span></div>
+        <div class="ii"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#16A79A" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg><span><b>Lista de servicios</b> con precios, si desea publicarlos</span></div>
+        <div class="ii"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#16A79A" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg><span><b>Solicitud de cita</b> directa a su WhatsApp</span></div>
+        <div class="ii"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#16A79A" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg><span><b>Botón «cómo llegar»</b> con su ubicación exacta</span></div>
+        <div class="ii"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#16A79A" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg><span><b>Aparece en las búsquedas</b> por especialidad y por ciudad</span></div>
+        <div class="ii"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#16A79A" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg><span><b>Cambios cuando los necesite</b> — nos escribe y lo actualizamos</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="price" id="precio">
+    <div class="wrap">
+      <p class="eyebrow" style="color:#7F94AC"><b style="color:#67C07A">05</b><i style="background:rgba(255,255,255,.16)"></i>Inversión</p>
+      <h2>Cinco dólares al mes para empezar</h2>
+
+      <div class="price-card">
+        <p class="big">$5 <small>/ mes los primeros 3 meses</small></p>
+
+        <div class="price-rows">
+          <div class="pr"><span>Mes 1</span><b>$5</b></div>
+          <div class="pr"><span>Mes 2</span><b>$5</b></div>
+          <div class="pr"><span>Mes 3</span><b>$5</b></div>
+          <div class="pr"><span>Mes 3 · si decide continuar<br><i>pago único por los 9 meses restantes</i></span><b>$45</b></div>
+        </div>
+
+        <small class="nota">Al tercer mes usted decide, con resultados en la mano. Si continúa, hace <b style="color:#fff;font-weight:700">un solo pago de $45</b> que cubre el resto del año — no hay más mensualidades. En total serían $60 por doce meses. Si prefiere no continuar, no paga nada más y ahí queda.</small>
+      </div>
+    </div>
+  </section>
+
+  <section class="end">
+    <div class="wrap">
+      <h2>Para montar su perfil necesito tres cosas</h2>
+      <p class="lede">Una foto suya, la dirección exacta donde atiende, y el número donde le piden citas. Con eso lo tengo listo.</p>
+      <a class="btn btn-primary" href="#" data-msg="Hola, quiero mi perfil en VITALUD.">Escribir por WhatsApp</a>
+    </div>
+  </section>
+
+</main>
+
+<div class="ov" id="ovMap">
+  <div class="mp">
+    <div class="mp-map">
+      <button class="mp-close" id="mpClose" aria-label="Cerrar">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#1C2941" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+      <svg viewBox="0 0 400 210" preserveAspectRatio="xMidYMid slice" style="width:100%;height:100%;display:block">
+        <rect width="400" height="210" fill="#EAF0EA"/>
+        <path d="M-20 150h440M-20 62h440M120 -10v230M268 -10v230" stroke="#fff" stroke-width="13"/>
+        <path d="M-20 106h440M56 -10v230M340 -10v230" stroke="#fff" stroke-width="7"/>
+        <rect x="132" y="74" width="52" height="24" fill="#DDE7DD"/>
+        <rect x="196" y="74" width="60" height="24" fill="#DDE7DD"/>
+        <rect x="132" y="118" width="46" height="24" fill="#DDE7DD"/>
+        <rect x="282" y="118" width="46" height="24" fill="#DDE7DD"/>
+        <rect x="282" y="74" width="46" height="24" fill="#D6E6DA"/>
+        <rect x="68" y="118" width="40" height="24" fill="#DDE7DD"/>
+        <text x="200" y="203" text-anchor="middle" font-family="DM Mono, monospace" font-size="9" fill="#9BAFA0" letter-spacing="1.4">MAPA DE EJEMPLO</text>
+      </svg>
+      <svg class="pin" width="34" height="44" viewBox="0 0 34 44" fill="none">
+        <path d="M17 1c8.3 0 15 6.7 15 15 0 10.5-15 26-15 26S2 26.5 2 16C2 7.7 8.7 1 17 1z" fill="#16A79A" stroke="#fff" stroke-width="2.4"/>
+        <circle cx="17" cy="16" r="5.4" fill="#fff"/>
+      </svg>
+    </div>
+    <div class="mp-info">
+      <h4>Centro Clínico Valera</h4>
+      <p>Piso 3, consultorio 302 · Valera, estado Trujillo</p>
+      <a class="btn btn-primary" href="https://www.google.com/maps/search/?api=1&query=Centro+Cl%C3%ADnico+Valera+Trujillo+Venezuela" target="_blank" rel="noopener">Abrir en Google Maps</a>
+    </div>
+  </div>
+</div>
+
+
+<footer>
+  <div class="wrap">
+    <p>VITALUD · un proyecto de VIBRA Studio</p>
+    <p class="sig">Valera · Estado Trujillo</p>
+  </div>
+</footer>
+
+<script>
+var WA = "584227472852";
+document.querySelectorAll("[data-msg]").forEach(function(a){
+  a.addEventListener("click", function(e){
+    e.preventDefault();
+    window.open("https://wa.me/"+WA+"?text="+encodeURIComponent(a.getAttribute("data-msg")),"_blank","noopener");
+  });
+});
+
+/* ── demo animada de solicitud de cita ── */
+(function(){
+  var q=function(x){return document.querySelector(x)};
+  var qa=function(x){return Array.prototype.slice.call(document.querySelectorAll(x))};
+  var paneV=q("#paneV"), paneW=q("#paneW"), bub=q("#bub"), tp=q("#tp");
+  var fN=q("#fN"), fT=q("#fT"), pBtn=q("#pBtn"), replay=q("#replay");
+  if(!paneV) return;
+
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var timers=[], corriendo=false;
+
+  function esperar(ms,fn){ timers.push(setTimeout(fn,ms)); }
+  function limpiar(){ timers.forEach(clearTimeout); timers=[]; }
+
+  function reset(){
+    limpiar();
+    qa(".d,.hh").forEach(function(e){e.classList.remove("sel")});
+    fN.innerHTML='<i>Nombre y apellido</i>';
+    fT.innerHTML='<i>Teléfono</i>';
+    pBtn.classList.remove("press");
+    bub.classList.remove("in");
+    tp.style.display="flex";
+    paneW.classList.remove("on");
+    paneV.classList.add("on");
+  }
+
+  function escribir(el, texto, listo){
+    var i=0; el.innerHTML='<span class="cur"></span>';
+    (function paso(){
+      if(i>texto.length){ el.innerHTML=texto; if(listo) listo(); return; }
+      el.innerHTML=texto.slice(0,i)+'<span class="cur"></span>';
+      i++; esperar(52,paso);
+    })();
+  }
+
+  function correr(){
+    if(corriendo) return;
+    corriendo=true;
+    reset();
+
+    if(reduce){
+      qa(".d")[1].classList.add("sel");
+      qa(".hh")[2].classList.add("sel");
+      fN.innerHTML="María González"; fT.innerHTML="0414 555 1234";
+      paneV.classList.remove("on"); paneW.classList.add("on");
+      tp.style.display="none"; bub.classList.add("in");
+      corriendo=false; return;
+    }
+
+    esperar(900, function(){ qa(".d")[1].classList.add("sel"); });
+    esperar(1750, function(){ qa(".hh")[2].classList.add("sel"); });
+    esperar(2500, function(){
+      escribir(fN,"María González", function(){
+        esperar(320, function(){
+          escribir(fT,"0414 555 1234", function(){
+            esperar(520, function(){
+              pBtn.classList.add("press");
+              esperar(210, function(){
+                pBtn.classList.remove("press");
+                esperar(330, function(){
+                  paneV.classList.remove("on");
+                  paneW.classList.add("on");
+                  esperar(1250, function(){
+                    tp.style.display="none";
+                    bub.classList.add("in");
+                    corriendo=false;
+                  });
+                });
+              });
+            });
+          });
+        });
+      });
+    });
+  }
+
+  /* arranca al entrar en pantalla */
+  var visto=false;
+  if("IntersectionObserver" in window){
+    var io=new IntersectionObserver(function(ent){
+      ent.forEach(function(e){
+        if(e.isIntersecting && !visto){ visto=true; esperar(420, correr); }
+      });
+    },{threshold:.45});
+    io.observe(paneV.closest(".phone"));
+  } else { correr(); }
+
+  replay.addEventListener("click", function(){ corriendo=false; correr(); });
+
+  /* botón del perfil de ejemplo */
+  var bCita=q("#bCita");
+  if(bCita) bCita.addEventListener("click", function(){
+    document.getElementById("demo").scrollIntoView({behavior:"smooth"});
+    esperar(700, function(){ corriendo=false; correr(); });
+  });
+})();
+
+/* ── modal del mapa ── */
+(function(){
+  var ov=document.getElementById("ovMap");
+  var abrir=document.getElementById("bMapa");
+  var cerrar=document.getElementById("mpClose");
+  if(!ov) return;
+  function off(){ ov.classList.remove("on"); document.body.style.overflow=""; }
+  if(abrir) abrir.addEventListener("click", function(){
+    ov.classList.add("on"); document.body.style.overflow="hidden";
+  });
+  if(cerrar) cerrar.addEventListener("click", off);
+  ov.addEventListener("click", function(e){ if(e.target===ov) off(); });
+  document.addEventListener("keydown", function(e){ if(e.key==="Escape") off(); });
+})();
+
+</script>
+</body>
+</html>
