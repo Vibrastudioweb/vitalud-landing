@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="es-VE">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VITALUD — Directorio de salud del estado Trujillo</title>
+<meta name="description" content="Estamos armando el directorio de salud del estado Trujillo. Médico por médico, llamando a cada uno. Registra tu consulta sin costo.">
+<meta property="og:title" content="VITALUD — Directorio de salud del estado Trujillo">
+<meta property="og:description" content="Médico por médico. Llamando a cada uno.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --teal:#16A79A; --azul:#2F9BD6; --verde:#67C07A; --navy:#1A2B4B;
+  --mint:#EAF7F4; --teal-050:#E7F6F3; --teal-600:#0F8C81; --navy-deep:#12203A;
+  --ink:#1C2941; --slate:#4F6079; --muted:#8494A8; --line:#E4EAF1;
+  --paper:#F6F9FB; --surface:#FFFFFF;
+  --grad:linear-gradient(96deg,#2F9BD6 0%,#16A79A 54%,#67C07A 100%);
+  --r-lg:24px; --r-md:20px; --r-sm:16px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font-family:"DM Sans",system-ui,sans-serif;font-size:16px;line-height:1.625;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:Sora,system-ui,sans-serif;font-weight:700;letter-spacing:-.03em;margin:0}
+p{margin:0}
+a{color:var(--teal-600)}
+.wrap{max-width:1140px;margin:0 auto;padding:0 26px}
+
+h1{font-size:clamp(34px,5.2vw,52px);line-height:1.08}
+h2{font-size:clamp(26px,3.6vw,34px);line-height:1.14;max-width:19ch}
+h3{font-size:21px;font-weight:600;line-height:1.25}
+.lede{margin-top:16px;color:var(--slate);max-width:58ch}
+
+.eyebrow{display:flex;align-items:center;gap:14px;margin-bottom:16px;
+  font-family:"DM Mono",monospace;font-size:13px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--muted)}
+.eyebrow b{color:var(--teal);font-weight:500}
+.eyebrow i{display:block;width:44px;height:1px;background:var(--line)}
+
+/* nav */
+.nav{padding:26px 0}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none}
+.wordmark{font-family:Sora;font-weight:700;font-size:27px;letter-spacing:-.045em;color:var(--navy);line-height:1}
+.wordmark em{font-style:normal;color:var(--teal)}
+.tagline{display:block;font-size:8.5px;font-weight:500;letter-spacing:.34em;color:var(--muted);margin-top:4px}
+.place{font-family:"DM Mono",monospace;font-size:12.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
+
+/* chips */
+.chip{display:inline-flex;align-items:center;gap:7px;background:var(--teal-050);color:var(--teal-600);
+  font-size:14px;font-weight:500;padding:8px 15px;border-radius:999px;line-height:1}
+.chip.dot::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--verde)}
+
+/* botones */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;
+  font-family:"DM Sans";font-weight:700;font-size:16px;padding:16px 30px;
+  border-radius:999px;border:1px solid transparent;text-decoration:none;cursor:pointer;
+  transition:filter .16s,border-color .16s,color .16s}
+.btn-primary{background:var(--grad);color:#fff;box-shadow:0 8px 20px -8px rgba(22,167,154,.6)}
+.btn-primary:hover{filter:brightness(1.06)}
+.btn-soft{background:var(--surface);color:var(--navy);border-color:var(--line)}
+.btn-soft:hover{border-color:var(--teal);color:var(--teal-600)}
+.btn-block{width:100%}
+.btn:focus-visible,input:focus-visible,select:focus-visible,a:focus-visible{outline:3px solid var(--azul);outline-offset:3px}
+
+/* hero */
+.hero{padding:36px 0 10px}
+.hero-grid{display:grid;gap:44px;align-items:start}
+@media(min-width:960px){.hero-grid{grid-template-columns:1.02fr .98fr;gap:60px;align-items:center}}
+.hero-sub{margin-top:24px;max-width:44ch;font-size:18px;line-height:1.6;color:var(--slate)}
+.hero-notes{margin-top:34px;display:grid;gap:14px;max-width:44ch}
+.note{display:flex;gap:12px;align-items:flex-start;font-size:15.5px;color:var(--slate)}
+.note svg{flex:none;margin-top:4px}
+
+/* formulario */
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);
+  padding:clamp(26px,3.2vw,36px);box-shadow:0 26px 52px -34px rgba(28,41,65,.42)}
+.card-top{margin-bottom:26px}
+.card-top .free{display:block;font-family:"DM Mono",monospace;font-size:12.5px;font-weight:500;
+  letter-spacing:.13em;text-transform:uppercase;color:var(--teal);margin-bottom:11px}
+.card-top h2{font-size:24px;max-width:none}
+.card-top p{margin-top:8px;color:var(--slate);font-size:15.5px}
+.fields{display:grid;gap:17px}
+@media(min-width:560px){.two{grid-template-columns:1fr 1fr}}
+label{display:block;font-size:14px;font-weight:500;margin-bottom:7px}
+label .opt{color:var(--muted);font-weight:400}
+input,select{width:100%;font-family:"DM Sans";font-size:16px;color:var(--ink);
+  padding:14px 16px;border:1px solid var(--line);border-radius:14px;background:#fff}
+input::placeholder{color:var(--muted)}
+input:focus,select:focus{border-color:var(--teal)}
+.err{display:none;margin-top:15px;background:#FCEDEB;color:#C0392B;font-size:14.5px;padding:13px 16px;border-radius:14px}
+.hint{margin-top:16px;font-size:14px;color:var(--slate)}
+.formfoot{margin-top:24px}
+
+/* banda */
+.band{background:var(--grad);color:#fff;position:relative;margin-top:70px}
+.band .wrap{padding:64px 26px 70px;position:relative;z-index:2}
+.band h2{color:#fff}
+.band p{margin-top:16px;max-width:56ch;color:rgba(255,255,255,.92)}
+.band svg{display:block;width:100%;height:36px;position:absolute;left:0}
+.band .w-top{top:-1px}
+.band .w-bot{bottom:-1px}
+
+/* pasos */
+.steps{padding:74px 0 78px}
+.grid3{display:grid;gap:20px;margin-top:38px}
+@media(min-width:820px){.grid3{grid-template-columns:repeat(3,1fr)}}
+.step{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-md);padding:30px 27px}
+.step .n{display:block;font-family:"DM Mono",monospace;font-size:13px;font-weight:500;
+  color:var(--teal);letter-spacing:.09em;margin-bottom:16px}
+.step h3{margin-bottom:10px}
+.step p{color:var(--slate);font-size:15.5px}
+
+/* ecosistema */
+.eco{padding:0 0 82px}
+.eco-grid{display:grid;gap:16px;margin-top:36px;grid-template-columns:repeat(2,1fr)}
+@media(min-width:720px){.eco-grid{grid-template-columns:repeat(3,1fr)}}
+@media(min-width:1000px){.eco-grid{grid-template-columns:repeat(6,1fr)}}
+.eco-item{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-sm);padding:24px 16px;text-align:center}
+.tile{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;margin:0 auto 14px}
+.eco-item span{font-size:14.5px;font-weight:500;color:var(--ink)}
+
+/* datos */
+.fix{padding:0 0 86px}
+.fix-row{display:grid;gap:20px;margin-top:36px}
+@media(min-width:760px){.fix-row{grid-template-columns:1fr 1fr}}
+.fix-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-md);padding:30px 28px}
+.fix-card h3{margin-bottom:10px}
+.fix-card p{color:var(--slate);font-size:15.5px;margin-bottom:22px}
+
+footer{background:var(--navy-deep);color:#93A6BC;padding:58px 0 66px;font-size:15px}
+footer .wrap{display:grid;gap:28px}
+@media(min-width:760px){footer .wrap{grid-template-columns:1.5fr 1fr}}
+footer strong{color:#fff}
+footer a{color:#CFE0EC}
+.sig{font-family:"DM Mono",monospace;font-size:12.5px;color:#5E7590;margin-top:20px;letter-spacing:.06em}
+
+/* WhatsApp flotante */
+.wa-float{position:fixed;right:22px;bottom:22px;z-index:60;
+  display:inline-flex;align-items:center;gap:11px;
+  background:var(--grad);color:#fff;text-decoration:none;
+  font-family:"DM Sans";font-weight:700;font-size:15.5px;
+  padding:14px 22px 14px 18px;border-radius:999px;
+  box-shadow:0 12px 30px -10px rgba(22,167,154,.7);
+  opacity:0;visibility:hidden;transform:translateY(14px);
+  transition:opacity .25s ease,transform .25s ease,visibility .25s}
+.wa-float.on{opacity:1;visibility:visible;transform:translateY(0)}
+.wa-float:hover{filter:brightness(1.06)}
+.wa-float svg{flex:none}
+@media(max-width:640px){
+  .wa-float{right:16px;bottom:16px;padding:15px;gap:0}
+  .wa-float span{display:none}
+}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="VITALUD · Conecta con tu salud">
+      <!-- Isotipo redibujado a partir del PNG del brand book. Sustituir por el SVG original cuando aparezca. -->
+      <svg width="34" height="38" viewBox="0 0 64 72" fill="none" aria-hidden="true">
+        <defs>
+          <linearGradient id="vIzq" x1="14" y1="16" x2="32" y2="62" gradientUnits="userSpaceOnUse">
+            <stop offset="0" stop-color="#47A0CC"/><stop offset="1" stop-color="#255CA6"/>
+          </linearGradient>
+          <linearGradient id="vDer" x1="55" y1="25" x2="39" y2="66" gradientUnits="userSpaceOnUse">
+            <stop offset="0" stop-color="#2FB8AB"/><stop offset="1" stop-color="#1BA595"/>
+          </linearGradient>
+        </defs>
+        <path d="M54.5 27 40 64.5" stroke="url(#vDer)" stroke-width="12.5" stroke-linecap="round"/>
+        <path d="M12.5 18.5 30 60.5" stroke="url(#vIzq)" stroke-width="13" stroke-linecap="round"/>
+        <circle cx="37" cy="19" r="7.6" fill="#52AACE"/>
+      </svg>
+      <span>
+        <span class="wordmark">vita<em>lud</em></span>
+        <span class="tagline">CONECTA CON TU SALUD</span>
+      </span>
+    </a>
+    <span class="place">Valera · Estado Trujillo</span>
+  </div>
+</header>
+
+<main id="top">
+
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <span class="chip dot">En construcción</span>
+        <h1 style="margin-top:22px">Estamos armando el directorio de salud del estado Trujillo.</h1>
+        <p class="hero-sub">Médico por médico. Llamando a cada uno para confirmar su información antes de publicarla.</p>
+
+        <div class="hero-notes">
+          <div class="note">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#16A79A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>
+            <span><strong style="font-weight:700;color:var(--ink)">Aparecer en el directorio es gratis.</strong> No es una prueba ni una promoción de lanzamiento.</span>
+          </div>
+          <div class="note">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#16A79A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>
+            <span>Nada se publica sin confirmarlo antes contigo.</span>
+          </div>
+          <div class="note">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#16A79A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>
+            <span>Puedes corregir o retirar tus datos cuando quieras.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" id="registro">
+        <div class="card-top">
+          <span class="free">Registro sin costo</span>
+          <h2>Registra tu consulta</h2>
+          <p>Para profesionales, clínicas, laboratorios y farmacias del estado Trujillo.</p>
+        </div>
+
+        <div class="fields">
+          <div>
+            <label for="nombre">Nombre y apellido</label>
+            <input id="nombre" type="text" autocomplete="name" placeholder="Dra. Ana Belén Ruiz">
+          </div>
+
+          <div class="fields two">
+            <div>
+              <label for="esp">Especialidad</label>
+              <input id="esp" type="text" placeholder="Ginecología">
+            </div>
+            <div>
+              <label for="ciudad">Ciudad</label>
+              <select id="ciudad">
+                <option value="">Selecciona</option>
+                <option>Valera</option><option>Trujillo</option><option>Boconó</option>
+                <option>Sabana de Mendoza</option><option>Carvajal</option><option>Motatán</option>
+                <option>Escuque</option><option>La Puerta</option>
+                <option>Otra del estado Trujillo</option>
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <label for="dir">Dónde atiendes</label>
+            <input id="dir" type="text" placeholder="Centro Clínico Valera, piso 3, consultorio 302">
+          </div>
+
+          <div class="fields two">
+            <div>
+              <label for="hor">Días y horario <span class="opt">— opcional</span></label>
+              <input id="hor" type="text" placeholder="Lunes a jueves, 2 a 6 PM">
+            </div>
+            <div>
+              <label for="wa">WhatsApp de contacto</label>
+              <input id="wa" type="tel" inputmode="tel" placeholder="0414 000 0000">
+            </div>
+          </div>
+        </div>
+
+        <p class="err" id="err">Falta completar nombre, especialidad, ciudad, dirección y WhatsApp.</p>
+
+        <div class="formfoot">
+          <button class="btn btn-primary btn-block" id="send" type="button">Enviar mi registro</button>
+          <p class="hint">Al enviar se abre WhatsApp con tus datos listos para mandárnoslos.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="band">
+    <svg class="w-top" viewBox="0 0 1440 36" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0 0h1440v15c-244 25-462-9-722 1S244 36 0 19V0z" fill="#F6F9FB"/>
+    </svg>
+    <div class="wrap">
+      <h2>Nada se publica sin confirmarlo primero</h2>
+      <p>Existen directorios llenos de teléfonos que nadie contesta y consultorios que cerraron hace años. Preferimos ir lento y que la información sirva de verdad.</p>
+    </div>
+    <svg class="w-bot" viewBox="0 0 1440 36" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0 21c244 17 462-15 722-5s474 27 718 7v13H0V21z" fill="#F6F9FB"/>
+    </svg>
+  </div>
+
+  <section class="steps" id="metodo">
+    <div class="wrap">
+      <p class="eyebrow"><b>01</b><i></i>El método</p>
+      <h2>Tres pasos por cada ficha</h2>
+      <div class="grid3">
+        <div class="step">
+          <span class="n">PASO 01</span>
+          <h3>Llamamos</h3>
+          <p>Contactamos al profesional o a su consultorio para confirmar dirección, horario y teléfono.</p>
+        </div>
+        <div class="step">
+          <span class="n">PASO 02</span>
+          <h3>Confirmamos</h3>
+          <p>Cada ficha lleva la fecha en que fue confirmada. Lo que no pudimos verificar, no aparece.</p>
+        </div>
+        <div class="step">
+          <span class="n">PASO 03</span>
+          <h3>Publicamos</h3>
+          <p>La ficha entra al directorio con su ubicación y forma de contacto, y te avisamos para que la revises.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="eco">
+    <div class="wrap">
+      <p class="eyebrow"><b>02</b><i></i>Qué incluye</p>
+      <h2>Un solo ecosistema, muchas puertas</h2>
+      <p class="lede">No solo médicos. Clínicas, laboratorios, farmacias, odontología y centros de diagnóstico del estado, con el mismo criterio.</p>
+
+      <div class="eco-grid">
+        <div class="eco-item">
+          <div class="tile" style="background:#E7F6F3">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#16A79A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3v6a6 6 0 0 0 12 0V3"/><path d="M12 15v3a3 3 0 0 0 6 0v-1"/><circle cx="19" cy="16" r="2"/></svg>
+          </div>
+          <span>Médicos</span>
+        </div>
+        <div class="eco-item">
+          <div class="tile" style="background:#E4F1FB">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2F9BD6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21V7l8-4 8 4v14"/><path d="M12 9v6M9 12h6"/></svg>
+          </div>
+          <span>Clínicas</span>
+        </div>
+        <div class="eco-item">
+          <div class="tile" style="background:#E7F6F3">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#16A79A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="8" rx="4"/><path d="M12 8v8"/></svg>
+          </div>
+          <span>Farmacias</span>
+        </div>
+        <div class="eco-item">
+          <div class="tile" style="background:#EAF4EC">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#67C07A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3v7L4.5 18a2.5 2.5 0 0 0 2.1 3.8h10.8A2.5 2.5 0 0 0 19.5 18L15 10V3"/><path d="M8 3h8"/></svg>
+          </div>
+          <span>Laboratorios</span>
+        </div>
+        <div class="eco-item">
+          <div class="tile" style="background:#EAF4EC">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3E9B5F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5c-2-2-6-2-7 1-1 4 1 6 1 10 0 3 3 3 3.5 0S11 13 12 13s2 0 2.5 3S18 19 18 16c0-4 2-6 1-10-1-3-5-3-7-1z"/></svg>
+          </div>
+          <span>Odontología</span>
+        </div>
+        <div class="eco-item">
+          <div class="tile" style="background:#E4F1FB">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2F9BD6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3.5 12h5l2-4 3 8 2-4h5"/></svg>
+          </div>
+          <span>Diagnóstico</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="fix">
+    <div class="wrap">
+      <p class="eyebrow"><b>03</b><i></i>Si ya apareces</p>
+      <h2>Tu información es tuya</h2>
+      <p class="lede">Estamos armando el directorio a partir de información pública de consultorios y centros de salud del estado. Si encontraste tu ficha y algo no está bien, se corrige el mismo día.</p>
+      <div class="fix-row">
+        <div class="fix-card">
+          <h3>Corregir mis datos</h3>
+          <p>Dirección equivocada, horario viejo, especialidad incompleta o un teléfono que ya no usas.</p>
+          <a class="btn btn-soft" href="#" data-msg="Hola, quiero corregir mis datos en VITALUD.">Escribir por WhatsApp</a>
+        </div>
+        <div class="fix-card">
+          <h3>No quiero aparecer</h3>
+          <p>Retiramos tu ficha el mismo día que lo pidas y te confirmamos cuando esté hecho. Sin preguntas.</p>
+          <a class="btn btn-soft" href="#" data-msg="Hola, quiero que retiren mi ficha de VITALUD.">Solicitar retiro</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <p><strong>VITALUD</strong> es un proyecto de <strong>VIBRA Studio</strong>, estudio de marca y productos digitales con sede en Valera, estado Trujillo.</p>
+      <p class="sig">vitalud.pro · vibra.ink</p>
+    </div>
+    <div>
+      <p>¿Dudas sobre el registro?</p>
+      <p><a href="#" data-msg="Hola, tengo una consulta sobre VITALUD.">Escríbenos por WhatsApp</a></p>
+    </div>
+  </div>
+</footer>
+
+<a class="wa-float" id="waFloat" href="#" data-msg="Hola, quiero información sobre VITALUD." aria-label="Escríbenos por WhatsApp">
+  <svg width="21" height="21" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3.1.8.8-3-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.5.1l-.7.9c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.1-.2 0-.4.1-.5l.4-.5c.1-.2.2-.3.3-.5v-.4l-.7-1.7c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 2s.8 2.3.9 2.4c.1.2 1.7 2.6 4.1 3.6.6.3 1 .4 1.4.5.6.2 1.1.2 1.5.1.5-.1 1.4-.6 1.6-1.1.2-.6.2-1 .1-1.1l-.5-.3z"/></svg>
+  <span>WhatsApp</span>
+</a>
+
+<script>
+var WA = "584227472852"; // VITALUD · 0422-747-2852
+
+function abrirWA(t){ window.open("https://wa.me/"+WA+"?text="+encodeURIComponent(t),"_blank","noopener"); }
+
+document.querySelectorAll("[data-msg]").forEach(function(a){
+  a.addEventListener("click", function(e){ e.preventDefault(); abrirWA(a.getAttribute("data-msg")); });
+});
+
+document.getElementById("send").addEventListener("click", function(){
+  var v=function(id){return document.getElementById(id).value.trim();};
+  var d={n:v("nombre"),e:v("esp"),c:v("ciudad"),dir:v("dir"),h:v("hor"),w:v("wa")};
+  var err=document.getElementById("err");
+  if(!d.n||!d.e||!d.c||!d.dir||!d.w){ err.style.display="block"; return; }
+  err.style.display="none";
+  abrirWA("Registro VITALUD\n\nNombre: "+d.n+"\nEspecialidad: "+d.e+"\nCiudad: "+d.c
+    +"\nDónde atiende: "+d.dir+(d.h?"\nHorario: "+d.h:"")+"\nWhatsApp: "+d.w);
+});
+
+// El botón flotante aparece cuando el formulario del hero queda fuera de vista
+(function(){
+  var f=document.getElementById("waFloat"), reg=document.getElementById("registro");
+  function check(){
+    var r=reg.getBoundingClientRect();
+    f.classList.toggle("on", r.bottom < 60);
+  }
+  window.addEventListener("scroll", check, {passive:true});
+  window.addEventListener("resize", check);
+  check();
+})();
+</script>
+</body>
+</html>
