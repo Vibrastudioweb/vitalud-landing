@@ -267,16 +267,16 @@ footer a{color:#CFE0EC}
               <input id="esp" type="text" placeholder="Ginecología">
             </div>
             <div>
-              <label>¿Dónde atiendes?</label>
-              <div id="sedes"></div>
-              <button class="mas" id="masSede" type="button">+ Agregar otro consultorio</button>
-              <p class="ayuda">Cada consultorio aparece por separado, con su dirección y su horario. Puedes tener varios en la misma ciudad.</p>
-            </div>
-
-            <div>
               <label for="wa">WhatsApp de contacto</label>
               <input id="wa" type="tel" inputmode="tel" placeholder="0414 000 0000">
             </div>
+          </div>
+
+          <div>
+            <label>¿Dónde atiendes?</label>
+            <div id="sedes"></div>
+            <button class="mas" id="masSede" type="button">+ Agregar otro consultorio</button>
+            <p class="ayuda">Cada consultorio aparece por separado, con su dirección y su horario. Puedes tener varios en la misma ciudad.</p>
           </div>
         </div>
 
@@ -485,13 +485,15 @@ document.querySelectorAll("[data-msg]").forEach(function(a){
     d.className="sede";
     d.innerHTML =
       '<div class="sede-top"><b></b><button class="quitar" type="button">Quitar</button></div>'+
-      '<div class="fila">'+
+      '<div class="fila dos">'+
         '<div><label>Ciudad</label><select class="s-ciudad">'+
           '<option value="">Selecciona</option>'+
           CIUDADES.map(function(c){return '<option>'+c+'</option>'}).join('')+
         '</select></div>'+
         '<div><label>Dirección del consultorio</label>'+
           '<input class="s-dir" type="text" placeholder="Clínica UGA, piso 2, consultorio 210"></div>'+
+      '</div>'+
+      '<div class="fila" style="margin-top:13px">'+
         '<div><label>Días y horario <span class="opt">— opcional</span></label>'+
           '<input class="s-hor" type="text" placeholder="Viernes, 8:00 a 12:00"></div>'+
       '</div>';
