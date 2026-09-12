@@ -91,6 +91,29 @@ input,select{width:100%;font-family:"DM Sans";font-size:16px;color:var(--ink);
   padding:14px 16px;border:1px solid var(--line);border-radius:14px;background:#fff}
 input::placeholder{color:var(--muted)}
 input:focus,select:focus{border-color:var(--teal)}
+.sede{border:1px solid var(--line);border-radius:var(--r-sm);padding:18px;background:#FCFDFE;margin-bottom:12px;position:relative}
+.sede-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.sede-top b{font-family:"DM Mono",monospace;font-size:12px;letter-spacing:.11em;
+  text-transform:uppercase;color:var(--teal);font-weight:500}
+.quitar{background:none;border:none;cursor:pointer;color:var(--muted);font-size:13.5px;
+  font-family:"DM Sans";padding:4px 2px}
+.quitar:hover{color:#C0392B}
+.sede .fila{display:grid;gap:13px}
+@media(min-width:560px){.sede .fila.dos{grid-template-columns:1fr 1fr}}
+.mas{background:none;border:1px dashed var(--line);border-radius:var(--r-sm);
+  width:100%;padding:13px;cursor:pointer;font-family:"DM Sans";font-size:15px;
+  font-weight:500;color:var(--teal-600);transition:border-color .16s}
+.mas:hover{border-color:var(--teal)}
+.ciudades{display:flex;flex-wrap:wrap;gap:8px}
+.cd{cursor:pointer}
+.cd input{position:absolute;opacity:0;width:0;height:0}
+.cd span{display:inline-block;border:1px solid var(--line);border-radius:999px;
+  padding:9px 15px;font-size:14.5px;color:var(--slate);background:#fff;
+  transition:all .16s ease;user-select:none}
+.cd input:checked + span{background:var(--teal-050);border-color:var(--teal);
+  color:var(--teal-600);font-weight:700}
+.cd input:focus-visible + span{outline:3px solid var(--azul);outline-offset:2px}
+.ayuda{margin-top:9px;font-size:13.5px;color:var(--muted);line-height:1.5}
 .err{display:none;margin-top:15px;background:#FCEDEB;color:#C0392B;font-size:14.5px;padding:13px 16px;border-radius:14px}
 .hint{margin-top:16px;font-size:14px;color:var(--slate)}
 .formfoot{margin-top:24px}
@@ -154,6 +177,22 @@ footer a{color:#CFE0EC}
   .wa-float{right:16px;bottom:16px;padding:15px;gap:0}
   .wa-float span{display:none}
 }
+
+/* ── dos niveles ── */
+.niveles{display:grid;gap:18px;margin-top:36px}
+@media(min-width:760px){.niveles{grid-template-columns:1fr 1fr}}
+.niv{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-md);padding:30px 27px;display:flex;flex-direction:column}
+.niv.pro{border-color:var(--teal);box-shadow:0 16px 38px -28px rgba(22,167,154,.6)}
+.niv .precio{font-family:Sora;font-size:32px;font-weight:700;letter-spacing:-.04em;color:var(--ink);line-height:1}
+.niv .precio small{font-size:15px;font-weight:400;color:var(--muted);letter-spacing:0}
+.niv h3{margin:0 0 4px}
+.niv .qué{font-family:"DM Mono",monospace;font-size:12px;letter-spacing:.11em;
+  text-transform:uppercase;color:var(--muted);margin-bottom:14px;display:block}
+.niv ul{list-style:none;margin:20px 0 0;padding:0;display:grid;gap:10px;flex:1}
+.niv li{display:flex;gap:10px;align-items:flex-start;font-size:15px;color:var(--slate)}
+.niv li svg{flex:none;margin-top:4px}
+.niv .btn{margin-top:24px}
+
 </style>
 </head>
 <body>
@@ -228,27 +267,12 @@ footer a{color:#CFE0EC}
               <input id="esp" type="text" placeholder="Ginecología">
             </div>
             <div>
-              <label for="ciudad">Ciudad</label>
-              <select id="ciudad">
-                <option value="">Selecciona</option>
-                <option>Valera</option><option>Trujillo</option><option>Boconó</option>
-                <option>Sabana de Mendoza</option><option>Carvajal</option><option>Motatán</option>
-                <option>Escuque</option><option>La Puerta</option>
-                <option>Otra del estado Trujillo</option>
-              </select>
+              <label>¿Dónde atiendes?</label>
+              <div id="sedes"></div>
+              <button class="mas" id="masSede" type="button">+ Agregar otro consultorio</button>
+              <p class="ayuda">Cada consultorio aparece por separado, con su dirección y su horario. Puedes tener varios en la misma ciudad.</p>
             </div>
-          </div>
 
-          <div>
-            <label for="dir">Dónde atiendes</label>
-            <input id="dir" type="text" placeholder="Centro Clínico Valera, piso 3, consultorio 302">
-          </div>
-
-          <div class="fields two">
-            <div>
-              <label for="hor">Días y horario <span class="opt">— opcional</span></label>
-              <input id="hor" type="text" placeholder="Lunes a jueves, 2 a 6 PM">
-            </div>
             <div>
               <label for="wa">WhatsApp de contacto</label>
               <input id="wa" type="tel" inputmode="tel" placeholder="0414 000 0000">
@@ -256,7 +280,7 @@ footer a{color:#CFE0EC}
           </div>
         </div>
 
-        <p class="err" id="err">Falta completar nombre, especialidad, ciudad, dirección y WhatsApp.</p>
+        <p class="err" id="err">Falta completar nombre, especialidad, WhatsApp y al menos un consultorio con ciudad y dirección.</p>
 
         <div class="formfoot">
           <button class="btn btn-primary btn-block" id="send" type="button">Enviar mi registro</button>
@@ -350,9 +374,47 @@ footer a{color:#CFE0EC}
     </div>
   </section>
 
+
+  <section class="fix" style="padding-top:0">
+    <div class="wrap">
+      <p class="eyebrow"><b>04</b><i></i>Dos niveles</p>
+      <h2>Aparecer es gratis. Destacar es opcional.</h2>
+      <p class="lede">Toda ficha entra al directorio sin costo. Si quieres una página completa con foto, servicios y solicitud de cita, existe el perfil profesional.</p>
+
+      <div class="niveles">
+        <div class="niv">
+          <span class="qué">Ficha básica</span>
+          <h3>Gratis</h3>
+          <p class="precio" style="margin-top:12px">$0<small> · siempre</small></p>
+          <ul>
+            <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#16A79A" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg><span>Nombre y especialidad</span></li>
+            <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#16A79A" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg><span>Dirección y horario de consulta</span></li>
+            <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#16A79A" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg><span>Teléfono de contacto</span></li>
+            <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#16A79A" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg><span>Aparece en las búsquedas por especialidad y ciudad</span></li>
+          </ul>
+          <a class="btn btn-soft" href="#registro">Registrarme sin costo</a>
+        </div>
+
+        <div class="niv pro">
+          <span class="qué">Perfil profesional</span>
+          <h3>Con todo</h3>
+          <p class="precio" style="margin-top:12px">$5<small> / mes</small></p>
+          <ul>
+            <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#16A79A" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg><span>Todo lo de la ficha básica</span></li>
+            <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#16A79A" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg><span>Tu foto y descripción profesional</span></li>
+            <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#16A79A" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg><span>Servicios con precio y seguros que aceptas</span></li>
+            <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#16A79A" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg><span>Solicitud de cita directa a tu WhatsApp</span></li>
+            <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#16A79A" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg><span>Tu propia dirección: vitalud.pro/medico/tu-nombre</span></li>
+          </ul>
+          <a class="btn btn-primary" href="/medicos">Ver cómo funciona</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="fix">
     <div class="wrap">
-      <p class="eyebrow"><b>03</b><i></i>Si ya apareces</p>
+      <p class="eyebrow"><b>05</b><i></i>Si ya apareces</p>
       <h2>Tu información es tuya</h2>
       <p class="lede">Estamos armando el directorio a partir de información pública de consultorios y centros de salud del estado. Si encontraste tu ficha y algo no está bien, se corrige el mismo día.</p>
       <div class="fix-row">
@@ -399,14 +461,72 @@ document.querySelectorAll("[data-msg]").forEach(function(a){
   a.addEventListener("click", function(e){ e.preventDefault(); abrirWA(a.getAttribute("data-msg")); });
 });
 
+
+/* ── consultorios dinámicos ── */
+(function(){
+  var cont=document.getElementById("sedes"), mas=document.getElementById("masSede");
+  if(!cont) return;
+  var CIUDADES=["Valera","Trujillo","Boconó","Carvajal","Sabana de Mendoza",
+                "Motatán","Escuque","La Puerta","Otra del estado Trujillo"];
+  var n=0;
+
+  function pinta(){
+    Array.prototype.slice.call(cont.children).forEach(function(el,i){
+      el.querySelector("b").textContent = "Consultorio " + (i+1);
+      var q = el.querySelector(".quitar");
+      q.style.display = cont.children.length > 1 ? "block" : "none";
+    });
+    mas.style.display = cont.children.length >= 5 ? "none" : "block";
+  }
+
+  function agrega(){
+    n++;
+    var d=document.createElement("div");
+    d.className="sede";
+    d.innerHTML =
+      '<div class="sede-top"><b></b><button class="quitar" type="button">Quitar</button></div>'+
+      '<div class="fila">'+
+        '<div><label>Ciudad</label><select class="s-ciudad">'+
+          '<option value="">Selecciona</option>'+
+          CIUDADES.map(function(c){return '<option>'+c+'</option>'}).join('')+
+        '</select></div>'+
+        '<div><label>Dirección del consultorio</label>'+
+          '<input class="s-dir" type="text" placeholder="Clínica UGA, piso 2, consultorio 210"></div>'+
+        '<div><label>Días y horario <span class="opt">— opcional</span></label>'+
+          '<input class="s-hor" type="text" placeholder="Viernes, 8:00 a 12:00"></div>'+
+      '</div>';
+    d.querySelector(".quitar").addEventListener("click", function(){ d.remove(); pinta(); });
+    cont.appendChild(d);
+    pinta();
+  }
+
+  mas.addEventListener("click", agrega);
+  agrega();
+
+  window.leerSedes = function(){
+    return Array.prototype.slice.call(cont.children).map(function(el){
+      return {
+        ciudad: el.querySelector(".s-ciudad").value.trim(),
+        dir:    el.querySelector(".s-dir").value.trim(),
+        hor:    el.querySelector(".s-hor").value.trim()
+      };
+    }).filter(function(s){ return s.ciudad && s.dir; });
+  };
+})();
+
 document.getElementById("send").addEventListener("click", function(){
   var v=function(id){return document.getElementById(id).value.trim();};
-  var d={n:v("nombre"),e:v("esp"),c:v("ciudad"),dir:v("dir"),h:v("hor"),w:v("wa")};
+  var sedes = window.leerSedes ? window.leerSedes() : [];
+  var d={n:v("nombre"),e:v("esp"),w:v("wa")};
   var err=document.getElementById("err");
-  if(!d.n||!d.e||!d.c||!d.dir||!d.w){ err.style.display="block"; return; }
+  if(!d.n||!d.e||!d.w||sedes.length===0){ err.style.display="block"; return; }
   err.style.display="none";
-  abrirWA("Registro VITALUD\n\nNombre: "+d.n+"\nEspecialidad: "+d.e+"\nCiudad: "+d.c
-    +"\nDónde atiende: "+d.dir+(d.h?"\nHorario: "+d.h:"")+"\nWhatsApp: "+d.w);
+
+  var txt = "Registro VITALUD\n\nNombre: "+d.n+"\nEspecialidad: "+d.e+"\nWhatsApp: "+d.w+"\n";
+  sedes.forEach(function(s,i){
+    txt += "\nConsultorio "+(i+1)+"\n"+s.ciudad+"\n"+s.dir+(s.hor?"\n"+s.hor:"")+"\n";
+  });
+  abrirWA(txt);
 });
 
 // El botón flotante aparece cuando el formulario del hero queda fuera de vista
